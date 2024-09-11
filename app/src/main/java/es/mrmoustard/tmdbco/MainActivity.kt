@@ -7,22 +7,31 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import es.mrmoustard.tmdbco.ui.theme.TmdbCoTheme
+import es.mrmoustard.tmdbco.model.Movie
+import es.mrmoustard.tmdbco.ui.TmdbcoApp
+import es.mrmoustard.tmdbco.ui.screen.common.TmdbItemsList
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TmdbCoTheme {
+            TmdbcoApp {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    Greeting(
-                        name = "Android",
-                        modifier = Modifier.padding(innerPadding)
+                    val movies = (1..10).map {
+                        Movie(
+                            backdropPath = "https://picsum.photos/id/$it/200/300?grayscale&blur=2",
+                            id = it,
+                            title = "Title $it"
+                        )
+                    }
+
+                    TmdbItemsList(
+                        loading = false,
+                        items = movies,
+                        onMovieClick = {},
+                        modifier =  Modifier.padding(innerPadding)
                     )
                 }
             }
@@ -30,18 +39,3 @@ class MainActivity : ComponentActivity() {
     }
 }
 
-@Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun GreetingPreview() {
-    TmdbCoTheme {
-        Greeting("Android")
-    }
-}
