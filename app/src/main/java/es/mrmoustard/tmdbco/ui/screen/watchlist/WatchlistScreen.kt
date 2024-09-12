@@ -9,12 +9,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
+import es.mrmoustard.tmdbco.model.Movie
 
 @Composable
-fun WatchlistScreen(modifier: Modifier = Modifier) {
+fun WatchlistScreen(onMovieClick: (Movie) -> Unit) {
     Box(
         contentAlignment = Alignment.Center,
-        modifier = modifier.fillMaxSize()
+        modifier = Modifier.fillMaxSize()
     ) {
         Text(
             text = "Watchlist",

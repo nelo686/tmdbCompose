@@ -19,7 +19,15 @@ sealed class NavItem(
         navArgument(name = it.key) { type = it.type }
     }
 
+    object Favourite : NavItem(baseRoute = "favourite")
     object TopRated : NavItem(baseRoute = "top_rated")
+    object Watchlist : NavItem(baseRoute = "watchlist")
+    object Detail: NavItem(
+        baseRoute = "detail",
+        navArgs = listOf(NavArg.ItemId)
+    ) {
+        fun createNavRoute(movieId: Int) = "$baseRoute/$movieId"
+    }
 }
 
 enum class NavArg(val key: String, val type: NavType<*>) {

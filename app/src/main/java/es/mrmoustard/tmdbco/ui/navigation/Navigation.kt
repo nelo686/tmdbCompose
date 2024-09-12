@@ -6,7 +6,10 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import es.mrmoustard.tmdbco.ui.screen.detail.MovieDetailScreen
+import es.mrmoustard.tmdbco.ui.screen.favourites.FavouriteScreen
 import es.mrmoustard.tmdbco.ui.screen.home.TopRatedScreen
+import es.mrmoustard.tmdbco.ui.screen.watchlist.WatchlistScreen
 
 @Composable
 fun Navigation(navController: NavHostController) {
@@ -14,12 +17,30 @@ fun Navigation(navController: NavHostController) {
         navController = navController,
         startDestination = NavItem.TopRated.route
     ) {
-        composable(navItem = NavItem.TopRated) {
-            TopRatedScreen { movie ->
-                navController.navigate(route = "movieDetail")
+        composable(NavItem.Favourite) {
+            FavouriteScreen { movie ->
+                navController.navigateToDetail(movie.id)
             }
         }
+        composable(NavItem.TopRated) {
+            TopRatedScreen { movie ->
+                navController.navigateToDetail(movie.id)
+            }
+        }
+        composable(NavItem.Watchlist) {
+            WatchlistScreen { movie ->
+                navController.navigateToDetail(movie.id)
+            }
+        }
+
+        composable(NavItem.Detail) { backStackEntry ->
+            MovieDetailScreen(movieId = backStackEntry.findArg(arg = NavArg.ItemId))
+        }
     }
+}
+
+private fun NavHostController.navigateToDetail(itemId: Int) {
+    navigate(route = NavItem.Detail.createNavRoute(itemId))
 }
 
 private fun NavGraphBuilder.composable(
