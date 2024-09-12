@@ -9,7 +9,10 @@ import es.mrmoustard.tmdbco.model.Movie
 import es.mrmoustard.tmdbco.ui.screen.common.TmdbItemsList
 
 @Composable
-fun TopRatedScreen(onMovieClick: (Movie) -> Unit) {
+fun TopRatedScreen(
+    onMovieClick: (Movie) -> Unit,
+    modifier: Modifier = Modifier
+) {
     Scaffold(modifier = Modifier.fillMaxSize())
     { innerPadding ->
         val movies = (1..10).map {

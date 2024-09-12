@@ -39,10 +39,6 @@ fun Navigation(navController: NavHostController) {
     }
 }
 
-private fun NavHostController.navigateToDetail(itemId: Int) {
-    navigate(route = NavItem.Detail.createNavRoute(itemId))
-}
-
 private fun NavGraphBuilder.composable(
     navItem: NavItem,
     content: @Composable (NavBackStackEntry) -> Unit
@@ -53,6 +49,10 @@ private fun NavGraphBuilder.composable(
     ) {
         content(it)
     }
+}
+
+private fun NavHostController.navigateToDetail(itemId: Int) {
+    navigate(route = NavItem.Detail.createNavRoute(itemId))
 }
 
 private inline fun <reified T> NavBackStackEntry.findArg(arg: NavArg): T {
