@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImage
 import es.mrmoustard.tmdbco.R
 import es.mrmoustard.tmdbco.model.Movie
@@ -42,19 +43,17 @@ fun TmdbListItem(
                     .aspectRatio(1f)
             )
         }
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Text(
-                text = item.title,
-                style = MaterialTheme.typography.labelMedium,
-                maxLines = 2,
-                modifier = Modifier
-                    .padding(
-                        horizontal = dimensionResource(id = R.dimen.padding_medium),
-                        vertical = dimensionResource(id = R.dimen.padding_big)
-                    )
-            )
-        }
+        Text(
+            text = item.title,
+            textAlign = TextAlign.Center,
+            style = MaterialTheme.typography.labelMedium,
+            maxLines = 2,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    horizontal = dimensionResource(id = R.dimen.padding_medium),
+                    vertical = dimensionResource(id = R.dimen.padding_big)
+                )
+        )
     }
 }
