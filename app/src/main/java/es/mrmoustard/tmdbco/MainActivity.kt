@@ -14,7 +14,9 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             TmdbcoApp {
-                Navigation(rememberNavController())
+                Navigation(
+                    navController = rememberNavController()
+                )
             }
         }
     }
