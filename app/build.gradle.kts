@@ -1,6 +1,8 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
+    id("com.google.dagger.hilt.android")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -18,6 +20,9 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+
+        buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        buildConfigField( "String","BEARER", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDdlMmMyZmQxMmZjZmIwYjRhYjE1ZDcxNzhhOTNmMyIsInN1YiI6IjU4YjlhOWYxOTI1MTQxNjA2ZjAwY2MzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GiRbOoyLPkpfiAkwxQQRVy_R-47p71EvIRKSwZ6IpxU\"")
     }
 
     buildTypes {
@@ -38,6 +43,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -50,6 +56,8 @@ android {
 }
 
 dependencies {
+    implementation(project(":data"))
+    implementation(project(":domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
@@ -63,6 +71,9 @@ dependencies {
     implementation(libs.coil.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.material.icons.extended)
+
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
