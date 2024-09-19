@@ -3,6 +3,7 @@ package es.mrmoustard.data.source.dto
 import arrow.core.Either
 import arrow.core.left
 import arrow.core.right
+import com.squareup.moshi.JsonClass
 import retrofit2.HttpException
 import java.io.IOException
 
@@ -10,8 +11,10 @@ typealias Result<T> = Either<Error, T>
 
 sealed class Error {
     object Connectivity: Error()
-    class Server(val code: Int): Error()
-    class Unknown(val message: String): Error()
+    @JsonClass(generateAdapter = true)
+    data class Server(val code: Int): Error()
+    @JsonClass(generateAdapter = true)
+    data class Unknown(val message: String): Error()
 }
 
 fun Exception.toError(): Error = when(this) {

@@ -8,8 +8,8 @@ import es.mrmoustard.domain.model.TopRatedWrapper
 data class WrapperDto(
     val page: Int,
     val results: List<MovieDto>,
-    @Json(name = "total_pages") val totalPages: Int,
-    @Json(name = "total_results") val totalResults: Int,
+    @field:Json(name = "total_pages") val totalPages: Int,
+    @field:Json(name = "total_results") val totalResults: Int,
 )
 
 fun WrapperDto.mapToDomain(): TopRatedWrapper =

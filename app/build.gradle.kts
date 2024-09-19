@@ -20,9 +20,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-
-        buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField( "String","BEARER", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDdlMmMyZmQxMmZjZmIwYjRhYjE1ZDcxNzhhOTNmMyIsInN1YiI6IjU4YjlhOWYxOTI1MTQxNjA2ZjAwY2MzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GiRbOoyLPkpfiAkwxQQRVy_R-47p71EvIRKSwZ6IpxU\"")
     }
 
     buildTypes {
@@ -43,7 +40,6 @@ android {
     }
     buildFeatures {
         compose = true
-        buildConfig = true
     }
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.1"
@@ -72,8 +68,13 @@ dependencies {
     implementation(libs.androidx.navigation.compose)
     implementation(libs.androidx.material.icons.extended)
 
+    implementation(libs.arrow.core)
+    implementation(libs.arrow.fx.coroutines)
+
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
+    ksp(libs.androidx.hilt.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

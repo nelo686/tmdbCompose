@@ -1,21 +1,22 @@
 package es.mrmoustard.tmdbco.ui.screen.toprated
 
 import androidx.compose.runtime.Composable
-import es.mrmoustard.tmdbco.model.Movie
-import es.mrmoustard.tmdbco.ui.screen.common.TmdbItemsList
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
+import es.mrmoustard.domain.model.Movie
+import es.mrmoustard.tmdbco.ui.screen.common.TmdbItemsListScreen
 
 @Composable
-fun TopRatedScreen(onMovieClick: (Movie) -> Unit) {
-    val movies = (1..10).map {
-        Movie(
-            backdropPath = "https://picsum.photos/id/$it/200/300?grayscale&blur=2",
-            id = it,
-            title = "Title $it"
-        )
-    }
-    TmdbItemsList(
-        loading = false,
-        items = movies,
-        onMovieClick = { onMovieClick(it) }
+fun TopRatedScreen(
+    onMovieClick: (Movie) -> Unit,
+    viewModel: TopRatedViewModel = hiltViewModel<TopRatedViewModel>()
+) {
+    val state by viewModel.state.collectAsState()
+
+    TmdbItemsListScreen(
+        loading = state.loading,
+        items = state.movies,
+        onClick = onMovieClick
     )
 }

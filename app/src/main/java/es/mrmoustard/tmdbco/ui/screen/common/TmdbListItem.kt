@@ -18,8 +18,8 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
 import coil.compose.AsyncImage
+import es.mrmoustard.domain.model.Movie
 import es.mrmoustard.tmdbco.R
-import es.mrmoustard.tmdbco.model.Movie
 
 @Composable
 fun TmdbListItem(

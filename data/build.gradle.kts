@@ -14,6 +14,9 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
+
+        buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
+        buildConfigField( "String","BEARER", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDdlMmMyZmQxMmZjZmIwYjRhYjE1ZDcxNzhhOTNmMyIsInN1YiI6IjU4YjlhOWYxOTI1MTQxNjA2ZjAwY2MzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GiRbOoyLPkpfiAkwxQQRVy_R-47p71EvIRKSwZ6IpxU\"")
     }
 
     buildTypes {
@@ -32,6 +35,9 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
@@ -41,11 +47,15 @@ dependencies {
     implementation(libs.material)
 
     implementation(libs.arrow.core)
-    implementation(libs.arrow.fx.coroutines)
 
     implementation(libs.okhttp)
     implementation(libs.logging.interceptor)
     implementation(libs.retrofit)
+    implementation(libs.retrofit2.kotlin.coroutines.adapter)
+
+    implementation(libs.moshi)
+    implementation(libs.moshi.adapters)
+    implementation(libs.moshi.kotlin)
     implementation(libs.converter.moshi)
 
     implementation(libs.moshi.kotlin)

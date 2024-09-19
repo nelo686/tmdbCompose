@@ -9,7 +9,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
-import es.mrmoustard.tmdbco.model.Movie
+import es.mrmoustard.domain.model.Movie
 
 @Composable
 fun FavouriteScreen(onMovieClick: (Movie) -> Unit) {
