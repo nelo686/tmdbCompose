@@ -1,9 +1,7 @@
 package es.mrmoustard.data.source.dto
 
-import com.squareup.moshi.JsonClass
 import es.mrmoustard.domain.model.Genre
 
-@JsonClass(generateAdapter = true)
 data class GenreDto(
     val id: Int,
     val name: String

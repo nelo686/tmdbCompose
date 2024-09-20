@@ -34,7 +34,7 @@ fun TmdbListItem(
     ) {
         Card {
             AsyncImage(
-                model = item.backdropPath,
+                model = "https://image.tmdb.org/t/p/w342${item.backdropPath}",
                 contentDescription =item.title,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

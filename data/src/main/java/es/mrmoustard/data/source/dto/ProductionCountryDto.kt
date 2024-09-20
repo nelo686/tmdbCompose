@@ -1,12 +1,10 @@
 package es.mrmoustard.data.source.dto
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 import es.mrmoustard.domain.model.ProductionCountry
 
-@JsonClass(generateAdapter = true)
 data class ProductionCountryDto(
-    @Json(name = "iso_3166_1") val iso31661: String,
+    @SerializedName("iso_3166_1") val iso31661: String,
     val name: String
 )
 

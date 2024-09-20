@@ -13,7 +13,7 @@ interface MoviesRemoteDataSource {
     suspend fun getTopRated(
         @Query("page") page: Int,
         @Query("region") region: String
-    ): Result<WrapperDto>
+    ): WrapperDto
 
     @GET("movie/{movieId}")
     suspend fun getMovieDetails(

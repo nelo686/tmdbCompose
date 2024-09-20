@@ -1,37 +1,35 @@
 package es.mrmoustard.data.source.dto
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 import es.mrmoustard.domain.model.Collection
 import es.mrmoustard.domain.model.MovieDetail
 
-@JsonClass(generateAdapter = true)
 data class MovieDetailDto(
     val adult: Boolean,
-    @Json(name = "backdrop_path") val backdropPath: String,
-    @Json(name = "belongs_to_collection") val belongsToCollection: CollectionDto?,
+    @SerializedName("backdrop_path") val backdropPath: String,
+    @SerializedName("belongs_to_collection") val belongsToCollection: CollectionDto?,
     val budget: Int,
     val genres: List<GenreDto>,
     val homepage: String,
     val id: Int,
-    @Json(name = "imdb_id") val imdbId: String,
-    @Json(name = "original_language") val originalLanguage: String,
-    @Json(name = "original_title") val originalTitle: String,
+    @SerializedName("imdb_id") val imdbId: String,
+    @SerializedName("original_language") val originalLanguage: String,
+    @SerializedName("original_title") val originalTitle: String,
     val overview: String,
     val popularity: Double,
-    @Json(name = "poster_path") val posterPath: String?,
-    @Json(name = "production_companies") val productionCompanies: List<ProductionCompanyDto>,
-    @Json(name = "production_countries") val productionCountries: List<ProductionCountryDto>,
-    @Json(name = "release_date") val releaseDate: String,
+    @SerializedName("poster_path") val posterPath: String?,
+    @SerializedName("production_companies") val productionCompanies: List<ProductionCompanyDto>,
+    @SerializedName("production_countries") val productionCountries: List<ProductionCountryDto>,
+    @SerializedName("release_date") val releaseDate: String,
     val revenue: Int,
     val runtime: Int,
-    @Json(name = "spoken_languages") val spokenLanguages: List<SpokenLanguageDto>,
+    @SerializedName("spoken_languages") val spokenLanguages: List<SpokenLanguageDto>,
     val status: String,
     val tagline: String,
     val title: String,
     val video: Boolean,
-    @Json(name = "vote_average") val voteAverage: Double,
-    @Json(name = "vote_count") val voteCount: Int,
+    @SerializedName("vote_average") val voteAverage: Double,
+    @SerializedName("vote_count") val voteCount: Int,
     val favourite: Boolean = false,
     val wannaWatchIt: Boolean = false
 )

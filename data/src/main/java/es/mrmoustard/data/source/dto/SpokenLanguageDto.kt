@@ -1,12 +1,10 @@
 package es.mrmoustard.data.source.dto
 
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import com.google.gson.annotations.SerializedName
 import es.mrmoustard.domain.model.SpokenLanguage
 
-@JsonClass(generateAdapter = true)
 data class SpokenLanguageDto(
-    @Json(name = "iso_639_1") val iso6391: String,
+    @SerializedName("iso_639_1") val iso6391: String,
     val name: String
 )
 

@@ -10,8 +10,8 @@ import javax.inject.Inject
 class MoviesRemoteDataSourceImpl @Inject constructor(
     private val api: TmdbApi
 ): MoviesRemoteDataSource {
-    override suspend fun getTopRated(page: Int, region: String): Result<WrapperDto> =
-       tryCall { api.getTopRated(page = page, region = region) }
+    override suspend fun getTopRated(page: Int, region: String): WrapperDto =
+       api.getTopRated(page = page, region = region)
 
     override suspend fun getMovieDetails(movieId: Int): Result<MovieDetailDto> =
         tryCall { api.getMovieDetails(movieId = movieId) }

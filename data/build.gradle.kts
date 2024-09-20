@@ -16,7 +16,7 @@ android {
         consumerProguardFiles("consumer-rules.pro")
 
         buildConfigField("String", "BASE_URL", "\"https://api.themoviedb.org/3/\"")
-        buildConfigField( "String","BEARER", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDdlMmMyZmQxMmZjZmIwYjRhYjE1ZDcxNzhhOTNmMyIsInN1YiI6IjU4YjlhOWYxOTI1MTQxNjA2ZjAwY2MzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.GiRbOoyLPkpfiAkwxQQRVy_R-47p71EvIRKSwZ6IpxU\"")
+        buildConfigField( "String","BEARER", "\"eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI3NDdlMmMyZmQxMmZjZmIwYjRhYjE1ZDcxNzhhOTNmMyIsIm5iZiI6MTcyNjc2OTQ2MS4yOTAwMTEsInN1YiI6IjU4YjlhOWYxOTI1MTQxNjA2ZjAwY2MzZSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.G_X-pb-0UOvNoa4CjsGa4G1W0IWMWbPnONfrQbLcaUw\"")
     }
 
     buildTypes {
@@ -53,13 +53,8 @@ dependencies {
     implementation(libs.retrofit)
     implementation(libs.retrofit2.kotlin.coroutines.adapter)
 
-    implementation(libs.moshi)
-    implementation(libs.moshi.adapters)
-    implementation(libs.moshi.kotlin)
-    implementation(libs.converter.moshi)
-
-    implementation(libs.moshi.kotlin)
-    ksp(libs.moshi.kotlin.codegen)
+    implementation(libs.gson)
+    implementation(libs.converter.gson)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
