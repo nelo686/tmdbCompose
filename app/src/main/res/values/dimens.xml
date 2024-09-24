@@ -1,8 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <dimen name="no_padding">0dp</dimen>
     <dimen name="padding_small">4dp</dimen>
     <dimen name="padding_medium">8dp</dimen>
     <dimen name="padding_big">16dp</dimen>
+
     <dimen name="grid_cell_width">180dp</dimen>
     <dimen name="warning_icon_size">128dp</dimen>
+
+    <dimen name="big_spacer">16dp</dimen>
+    <dimen name="small_spacer">4dp</dimen>
+    <dimen name="huge_spacer">48dp</dimen>
+    <dimen name="header_line_thickness">1dp</dimen>
 </resources>

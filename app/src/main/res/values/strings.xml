@@ -1,7 +1,16 @@
 <resources>
     <string name="app_name">tmdbCo</string>
+
     <string name="home">Home</string>
     <string name="favourites">Favourites</string>
     <string name="top_rated">Top rated</string>
     <string name="watchlist">Watchlist</string>
+
+    //Details screen
+    <string name="details_overview_header">Overview</string>
+    <string name="released">"Released: "</string>
+    <string name="genres">"Genres: "</string>
+    <string name="original_title">"Original title: "</string>
+    <string name="original_language">"Original language: "</string>
+    <string name="spoken_languages">"Spoken languages: "</string>
 </resources>

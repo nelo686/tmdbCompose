@@ -11,41 +11,55 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontFamily
+import androidx.compose.ui.res.dimensionResource
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontStyle
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import es.mrmoustard.domain.model.MovieDetail
+import es.mrmoustard.tmdbco.R
+import es.mrmoustard.tmdbco.ui.screen.common.ErrorMessage
+import es.mrmoustard.tmdbco.ui.theme.CustomDarkGray
 
 @Composable
 fun MovieDetailScreen(viewModel: MovieDetailViewModel = hiltViewModel<MovieDetailViewModel>()) {
     val state = viewModel.state
+    val movie = viewModel.state.movie.getOrNull()
 
-    if (state.loading) {
-        CircularProgressIndicator()
+    when {
+        state.loading -> CircularProgressIndicator()
+        movie != null -> DetailScreen(movie = movie)
+        else -> viewModel.state.movie.leftOrNull()?.let { ErrorMessage(error = it) }
     }
+}
 
-    if (state.movie.getOrNull() != null) {
-        LazyColumn(modifier = Modifier.fillMaxWidth()) {
-            item {
-                Header(state.movie.getOrNull()!!)
-            }
-
-            section(title = "", content = "")
-            section(title = "", content = "")
+@Composable
+fun DetailScreen(movie: MovieDetail) {
+    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        item { Header(movie) }
+        item { Title(movie.title) }
+        item { TagLine(movie.tagline) }
+        item { Highlights(movie = movie) }
+        item {
+            Section(
+                title = stringResource(id = R.string.details_overview_header),
+                content = movie.overview
+            )
         }
     }
 }
 
 @Composable
-fun Header(movie: MovieDetail) {
+private fun Header(movie: MovieDetail) {
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -60,22 +74,126 @@ fun Header(movie: MovieDetail) {
                     .aspectRatio(1f)
             )
         }
-        Spacer(modifier = Modifier.height(16.dp))
-        Text(
-            text = movie.title,
-            style = MaterialTheme.typography.titleLarge,
-            textAlign = TextAlign.Center,
-            fontFamily = FontFamily.Monospace,
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(16.dp, 0.dp)
+    }
+}
+
+@Composable
+private fun Title(title: String) {
+    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.huge_spacer)))
+    Text(
+        text = title,
+        textAlign = TextAlign.Center,
+        fontWeight = FontWeight.Bold,
+        style = MaterialTheme.typography.titleLarge,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                dimensionResource(id = R.dimen.padding_medium),
+                dimensionResource(id = R.dimen.no_padding)
+            )
+    )
+}
+
+@Composable
+private fun TagLine(tagline: String) {
+    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.big_spacer)))
+    Text(
+        text = tagline,
+        textAlign = TextAlign.Center,
+        fontStyle = FontStyle.Italic,
+        color = Color.DarkGray,
+        style = MaterialTheme.typography.titleMedium,
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(
+                dimensionResource(id = R.dimen.padding_medium),
+                dimensionResource(id = R.dimen.no_padding)
+            )
+    )
+    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.big_spacer)))
+}
+
+@Composable
+private fun Highlights(movie: MovieDetail) {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .background(CustomDarkGray)
+            .padding(
+                dimensionResource(id = R.dimen.padding_medium),
+                dimensionResource(id = R.dimen.padding_big)
+            )
+    ) {
+        MovieScore(movie.voteAverage, movie.voteCount)
+
+        Bullet(stringResource(id = R.string.released), movie.releaseDate)
+        Bullet(
+            stringResource(id = R.string.genres),
+            movie.genres.map { it.name }.joinToString(", ")
+        )
+        Bullet(stringResource(id = R.string.original_title), movie.originalTitle)
+        Bullet(stringResource(id = R.string.original_language), movie.originalLanguage)
+        Bullet(
+            stringResource(id = R.string.spoken_languages),
+            movie.spokenLanguages.map { it.name }.joinToString(", ")
         )
     }
 }
 
-fun LazyListScope.section(title: String, content: String) {
-    item {
-        Text(text = title)
-        Text(text = content)
+@Composable
+private fun MovieScore(voteAverage: Double, voteCount: Int) {
+    Column(modifier = Modifier.fillMaxWidth()) {
+        Text(
+            text = String.format("%.2f/10", voteAverage),
+            color = Color.White,
+            textAlign = TextAlign.End,
+            style = MaterialTheme.typography.bodyLarge,
+            modifier = Modifier.fillMaxWidth()
+        )
+        Text(
+            text = "$voteCount votes",
+            color = Color.White,
+            textAlign = TextAlign.End,
+            style = MaterialTheme.typography.bodyMedium,
+            modifier = Modifier.fillMaxWidth()
+        )
     }
+}
+
+@Composable
+private fun Bullet(header: String, value: String) {
+    Text(
+        text = header.plus(value),
+        color = Color.White,
+        modifier = Modifier.fillMaxWidth()
+    )
+}
+
+@Composable
+private fun Section(title: String, content: String) {
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.big_spacer)))
+        Text(
+            text = title,
+            textAlign = TextAlign.End,
+            fontWeight = FontWeight.Bold,
+            style = MaterialTheme.typography.titleLarge,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    dimensionResource(id = R.dimen.padding_medium),
+                    dimensionResource(id = R.dimen.no_padding)
+                )
+        )
+        HorizontalDivider(thickness = dimensionResource(id = R.dimen.header_line_thickness))
+        Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.small_spacer)))
+        Text(
+            text = content,
+            textAlign = TextAlign.Justify,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(
+                    dimensionResource(id = R.dimen.padding_medium),
+                    dimensionResource(id = R.dimen.no_padding)
+                )
+        )
 }
