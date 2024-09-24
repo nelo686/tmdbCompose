@@ -9,11 +9,12 @@ import androidx.compose.ui.res.stringResource
 
 @Composable
 fun AppBottomNavigation(
+    bottomNavOptions: List<NavItem>,
     currentRoute: String,
     onNavItemClick: (NavItem) -> Unit
 ) {
     NavigationBar {
-        NavItem.entries.forEach { item ->
+        bottomNavOptions.forEach { item ->
             val title = stringResource(id = item.title)
             NavigationBarItem(
                 selected = currentRoute.contains(item.navCommand.feature.route),

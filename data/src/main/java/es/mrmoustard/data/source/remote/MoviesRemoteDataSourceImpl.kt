@@ -13,6 +13,6 @@ class MoviesRemoteDataSourceImpl @Inject constructor(
     override suspend fun getTopRated(page: Int, region: String): WrapperDto =
        api.getTopRated(page = page, region = region)
 
-    override suspend fun getMovieDetails(movieId: Int): Result<MovieDetailDto> =
-        tryCall { api.getMovieDetails(movieId = movieId) }
+    override suspend fun getMovieDetails(movieId: Int): MovieDetailDto =
+        api.getMovieDetails(movieId = movieId)
 }

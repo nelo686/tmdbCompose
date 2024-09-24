@@ -1,27 +1,32 @@
-package es.mrmoustard.tmdbco.ui.screen.toprated
+package es.mrmoustard.tmdbco.ui.screen.detail
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.mrmoustard.data.repository.MoviesRepository
+import es.mrmoustard.tmdbco.ui.navigation.NavArg
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TopRatedViewModel @Inject constructor(
+class MovieDetailViewModel @Inject constructor(
+    savedStateHandle: SavedStateHandle,
     private val repository: MoviesRepository
-) : ViewModel() {
+): ViewModel() {
 
-    var state by mutableStateOf(TopRatedUiState())
+    private val id = savedStateHandle.get<Int>(NavArg.ItemId.key) ?: 0
+
+    var state by mutableStateOf(MovieDetailUiState())
         private set
 
     init {
         viewModelScope.launch {
-            state = TopRatedUiState(loading = true)
-            state = TopRatedUiState(movies = repository.getTopRated(page = 1))
+            state = MovieDetailUiState(loading = true)
+            state = MovieDetailUiState(movie = repository.getMovieDetails(movieId = id))
         }
     }
 }

@@ -1,7 +1,6 @@
 package es.mrmoustard.data.source.remote
 
 import es.mrmoustard.data.source.dto.MovieDetailDto
-import es.mrmoustard.data.source.dto.Result
 import es.mrmoustard.data.source.dto.WrapperDto
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -18,5 +17,5 @@ interface MoviesRemoteDataSource {
     @GET("movie/{movieId}")
     suspend fun getMovieDetails(
         @Path("movieId") movieId: Int
-    ): Result<MovieDetailDto>
+    ): MovieDetailDto
 }

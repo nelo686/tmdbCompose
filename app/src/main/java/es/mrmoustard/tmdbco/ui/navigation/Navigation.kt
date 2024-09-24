@@ -43,7 +43,7 @@ private fun NavGraphBuilder.topRatedNav(navController: NavHostController) {
             )
         }
         composable(navCommand = ContentDetail(Feature.TOP_RATED)) { backStackEntry ->
-            MovieDetailScreen(movieId = backStackEntry.findArg(arg = NavArg.ItemId))
+            MovieDetailScreen()
         }
     }
 }
@@ -61,7 +61,7 @@ private fun NavGraphBuilder.favouriteNav(navController: NavHostController) {
             }
         }
         composable(navCommand = ContentDetail(Feature.FAVOURITE)) { backStackEntry ->
-            MovieDetailScreen(movieId = backStackEntry.findArg(arg = NavArg.ItemId))
+            MovieDetailScreen()
         }
     }
 }
@@ -79,7 +79,7 @@ private fun NavGraphBuilder.watchlistNav(navController: NavHostController) {
             }
         }
         composable(navCommand = ContentDetail(Feature.WATCHLIST)) { backStackEntry ->
-            MovieDetailScreen(movieId = backStackEntry.findArg(arg = NavArg.ItemId))
+            MovieDetailScreen()
         }
     }
 }
@@ -94,10 +94,4 @@ private fun NavGraphBuilder.composable(
     ) {
         content(it)
     }
-}
-
-private inline fun <reified T> NavBackStackEntry.findArg(arg: NavArg): T {
-    val value = arguments?.get(arg.key)
-    requireNotNull(value)
-    return value as T
 }
