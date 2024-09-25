@@ -47,7 +47,11 @@ fun DetailScreen(movie: MovieDetail) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         item { Header(movie) }
         item { Title(movie.title) }
-        item { TagLine(movie.tagline) }
+
+        if (movie.tagline.isNotEmpty()) {
+            item { TagLine(movie.tagline) }
+        }
+
         item { Highlights(movie = movie) }
         item {
             Section(
@@ -92,16 +96,16 @@ private fun Title(title: String) {
                 dimensionResource(id = R.dimen.no_padding)
             )
     )
+    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.big_spacer)))
 }
 
 @Composable
 private fun TagLine(tagline: String) {
-    Spacer(modifier = Modifier.height(dimensionResource(id = R.dimen.big_spacer)))
     Text(
-        text = tagline,
+        text = "\"$tagline\"",
         textAlign = TextAlign.Center,
         fontStyle = FontStyle.Italic,
-        color = Color.DarkGray,
+        color = Color.DarkGray.copy(alpha = 0.5f),
         style = MaterialTheme.typography.titleMedium,
         modifier = Modifier
             .fillMaxWidth()
