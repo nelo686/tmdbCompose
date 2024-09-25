@@ -29,7 +29,7 @@ internal class MoviesRemoteDataSourceImplTest {
     }
 
     @Test
-    fun `GIVEN a page number and a region, WHEN call getTopRated(), THEN a list of movies is retrieved`() {
+    fun `GIVEN a page number and a region, WHEN call getTopRated(), THEN a movie list is retrieved`() =
         runBlocking {
             // Given
             val page = 1
@@ -46,10 +46,9 @@ internal class MoviesRemoteDataSourceImplTest {
             assertEquals(1, result.totalPages)
             assertEquals(1, result.totalResults)
         }
-    }
 
     @Test
-    fun `GIVEN a movie id, WHEN call getMovieDetails(), THEN movie details are retrieved`() {
+    fun `GIVEN a movie id, WHEN call getMovieDetails(), THEN movie details are retrieved`() =
         runBlocking {
             // Given
             val movieId = 1
@@ -106,5 +105,4 @@ internal class MoviesRemoteDataSourceImplTest {
             assertEquals(8.2, result.voteAverage)
             assertEquals(2400, result.voteCount)
         }
-    }
 }

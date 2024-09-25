@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.LazyListScope
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
@@ -25,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import es.mrmoustard.data.source.dto.Result
 import es.mrmoustard.domain.model.MovieDetail
 import es.mrmoustard.tmdbco.R
 import es.mrmoustard.tmdbco.ui.screen.common.ErrorMessage
@@ -32,14 +32,18 @@ import es.mrmoustard.tmdbco.ui.theme.CustomDarkGray
 
 @Composable
 fun MovieDetailScreen(viewModel: MovieDetailViewModel = hiltViewModel<MovieDetailViewModel>()) {
-    val state = viewModel.state
-    val movie = viewModel.state.movie.getOrNull()
-
     when {
-        state.loading -> CircularProgressIndicator()
-        movie != null -> DetailScreen(movie = movie)
-        else -> viewModel.state.movie.leftOrNull()?.let { ErrorMessage(error = it) }
+        viewModel.state.loading -> CircularProgressIndicator()
+        else -> DetailScreen(movie = viewModel.state.movie)
     }
+}
+
+@Composable
+fun DetailScreen(movie: Result<MovieDetail?>) {
+    movie.fold(
+        { ErrorMessage(error = it) },
+        { item -> item?.let { DetailScreen(movie = it) } }
+    )
 }
 
 @Composable

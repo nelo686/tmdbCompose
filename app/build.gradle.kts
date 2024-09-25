@@ -70,6 +70,7 @@ dependencies {
 
     implementation(libs.arrow.core)
     implementation(libs.arrow.fx.coroutines)
+    implementation(libs.kotlinx.coroutines.test)
 
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
@@ -77,6 +78,7 @@ dependencies {
     ksp(libs.androidx.hilt.compiler)
 
     testImplementation(libs.junit)
+    testImplementation(libs.mockito.kotlin)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     androidTestImplementation(platform(libs.androidx.compose.bom))
