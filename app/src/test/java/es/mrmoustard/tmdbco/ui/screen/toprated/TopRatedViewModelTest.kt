@@ -1,7 +1,9 @@
 package es.mrmoustard.tmdbco.ui.screen.toprated
 
+import arrow.core.left
 import arrow.core.right
 import es.mrmoustard.data.repository.MoviesRepository
+import es.mrmoustard.data.source.dto.Error
 import es.mrmoustard.domain.model.TopRatedWrapper
 import es.mrmoustard.tmdbco.ui.MainDispatcherRule
 import junit.framework.TestCase.assertTrue
@@ -44,5 +46,20 @@ class TopRatedViewModelTest {
             // Then
             assertTrue(viewModel.state.movies.isRight())
             assertThat(viewModel.state.movies.getOrNull(), instanceOf(TopRatedWrapper::class.java))
+        }
+
+    @Test
+    fun `GIVEN a page number, WHEN call getTopRated(), but THEN a unexpected error is retrieved`() =
+        runBlocking {
+            // Given
+            val repository = mock<MoviesRepository>()
+            whenever(repository.getTopRated(any(), any())).thenReturn(Error.Unknown("unknown").left())
+
+            // When
+            viewModel = TopRatedViewModel(repository)
+
+            // Then
+            assertTrue(viewModel.state.movies.isLeft())
+            assertThat(viewModel.state.movies.leftOrNull(), instanceOf(Error::class.java))
         }
 }

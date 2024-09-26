@@ -1,8 +1,10 @@
 package es.mrmoustard.tmdbco.ui.screen.detail
 
 import androidx.lifecycle.SavedStateHandle
+import arrow.core.left
 import arrow.core.right
 import es.mrmoustard.data.repository.MoviesRepository
+import es.mrmoustard.data.source.dto.Error
 import es.mrmoustard.domain.model.MovieDetail
 import es.mrmoustard.domain.model.TopRatedWrapper
 import es.mrmoustard.tmdbco.ui.MainDispatcherRule
@@ -45,5 +47,21 @@ class MovieDetailViewModelTest {
             // Then
             assertTrue(viewModel.state.movie.isRight())
             assertThat(viewModel.state.movie.getOrNull(), instanceOf(MovieDetail::class.java))
+        }
+
+    @Test
+    fun `GIVEN a movie id, WHEN call getMovieDetails(), but THEN a unexpected error is retrieved`() =
+        runBlocking {
+            // Given
+            val savedStateHandle = mock<SavedStateHandle>()
+            val repository = mock<MoviesRepository>()
+            whenever(repository.getMovieDetails(any())).thenReturn(Error.Unknown("unknown").left())
+
+            // When
+            viewModel = MovieDetailViewModel(savedStateHandle, repository)
+
+            // Then
+            assertTrue(viewModel.state.movie.isLeft())
+            assertThat(viewModel.state.movie.leftOrNull(), instanceOf(Error::class.java))
         }
 }
