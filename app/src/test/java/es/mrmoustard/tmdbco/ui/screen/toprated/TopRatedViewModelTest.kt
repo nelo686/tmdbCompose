@@ -3,7 +3,7 @@ package es.mrmoustard.tmdbco.ui.screen.toprated
 import arrow.core.left
 import arrow.core.right
 import es.mrmoustard.data.repository.MoviesRepository
-import es.mrmoustard.data.source.dto.Error
+import es.mrmoustard.data.source.remote.dto.Error
 import es.mrmoustard.domain.model.TopRatedWrapper
 import es.mrmoustard.tmdbco.ui.MainDispatcherRule
 import junit.framework.TestCase.assertTrue

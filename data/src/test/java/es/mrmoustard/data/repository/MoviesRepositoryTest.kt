@@ -2,6 +2,7 @@ package es.mrmoustard.data.repository
 
 import es.mrmoustard.data.mock.movieDetailDtoMock
 import es.mrmoustard.data.mock.wrapperDtoMock
+import es.mrmoustard.data.source.local.MoviesLocalDataSource
 import es.mrmoustard.data.source.remote.MoviesRemoteDataSource
 import es.mrmoustard.domain.model.Movie
 import es.mrmoustard.domain.model.MovieDetail
@@ -19,6 +20,7 @@ import org.mockito.kotlin.whenever
 
 class MoviesRepositoryTest {
 
+    @Mock private lateinit var local: MoviesLocalDataSource
     @Mock private lateinit var remote: MoviesRemoteDataSource
 
     private lateinit var repository: MoviesRepository
@@ -26,7 +28,7 @@ class MoviesRepositoryTest {
     @Before
     fun setUp() {
         MockitoAnnotations.openMocks(this)
-        repository = MoviesRepository(remote)
+        repository = MoviesRepository(local, remote)
     }
 
     @Test

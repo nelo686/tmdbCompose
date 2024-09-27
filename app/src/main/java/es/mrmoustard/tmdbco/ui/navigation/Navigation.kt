@@ -42,7 +42,7 @@ private fun NavGraphBuilder.topRatedNav(navController: NavHostController) {
                 }
             )
         }
-        composable(navCommand = ContentDetail(Feature.TOP_RATED)) { backStackEntry ->
+        composable(navCommand = ContentDetail(Feature.TOP_RATED)) {
             MovieDetailScreen()
         }
     }
@@ -60,7 +60,7 @@ private fun NavGraphBuilder.favouriteNav(navController: NavHostController) {
                 )
             }
         }
-        composable(navCommand = ContentDetail(Feature.FAVOURITE)) { backStackEntry ->
+        composable(navCommand = ContentDetail(Feature.FAVOURITE)) {
             MovieDetailScreen()
         }
     }
@@ -78,7 +78,7 @@ private fun NavGraphBuilder.watchlistNav(navController: NavHostController) {
                 )
             }
         }
-        composable(navCommand = ContentDetail(Feature.WATCHLIST)) { backStackEntry ->
+        composable(navCommand = ContentDetail(Feature.WATCHLIST)) {
             MovieDetailScreen()
         }
     }

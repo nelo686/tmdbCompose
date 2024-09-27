@@ -4,6 +4,7 @@ import es.mrmoustard.data.mock.movieDetailDtoMock
 import es.mrmoustard.data.mock.movieDetailMock
 import es.mrmoustard.data.mock.topRatedWrapperMock
 import es.mrmoustard.data.mock.wrapperDtoMock
+import es.mrmoustard.data.source.remote.dto.mapToDomain
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 

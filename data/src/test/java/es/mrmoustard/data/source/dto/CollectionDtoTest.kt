@@ -2,6 +2,7 @@ package es.mrmoustard.data.source.dto
 
 import es.mrmoustard.data.mock.collectionDtoMock
 import es.mrmoustard.data.mock.collectionMock
+import es.mrmoustard.data.source.remote.dto.mapToDomain
 import junit.framework.TestCase.assertEquals
 import junit.framework.TestCase.assertNull
 import org.junit.Test

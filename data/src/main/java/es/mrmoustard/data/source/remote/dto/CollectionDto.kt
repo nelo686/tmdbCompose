@@ -1,4 +1,4 @@
-package es.mrmoustard.data.source.dto
+package es.mrmoustard.data.source.remote.dto
 
 import com.google.gson.annotations.SerializedName
 import es.mrmoustard.domain.model.Collection

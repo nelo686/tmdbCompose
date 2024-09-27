@@ -4,7 +4,7 @@ import androidx.lifecycle.SavedStateHandle
 import arrow.core.left
 import arrow.core.right
 import es.mrmoustard.data.repository.MoviesRepository
-import es.mrmoustard.data.source.dto.Error
+import es.mrmoustard.data.source.remote.dto.Error
 import es.mrmoustard.domain.model.MovieDetail
 import es.mrmoustard.domain.model.TopRatedWrapper
 import es.mrmoustard.tmdbco.ui.MainDispatcherRule

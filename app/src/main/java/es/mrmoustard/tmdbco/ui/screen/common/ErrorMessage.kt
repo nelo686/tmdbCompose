@@ -14,7 +14,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.text.style.TextAlign
-import es.mrmoustard.data.source.dto.Error
+import es.mrmoustard.data.source.remote.dto.Error
 import es.mrmoustard.tmdbco.R
 
 @Composable

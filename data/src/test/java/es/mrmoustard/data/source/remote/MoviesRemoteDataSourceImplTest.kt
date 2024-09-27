@@ -2,8 +2,8 @@ package es.mrmoustard.data.source.remote
 
 import es.mrmoustard.data.mock.movieDetailDtoMock
 import es.mrmoustard.data.mock.wrapperDtoMock
-import es.mrmoustard.data.source.dto.MovieDetailDto
-import es.mrmoustard.data.source.dto.WrapperDto
+import es.mrmoustard.data.source.remote.dto.MovieDetailDto
+import es.mrmoustard.data.source.remote.dto.WrapperDto
 import es.mrmoustard.data.source.remote.api.TmdbApi
 import junit.framework.TestCase.assertEquals
 import kotlinx.coroutines.runBlocking

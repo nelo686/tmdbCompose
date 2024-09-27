@@ -2,6 +2,7 @@ package es.mrmoustard.data.source.dto
 
 import es.mrmoustard.data.mock.movieDtoMock
 import es.mrmoustard.data.mock.movieMock
+import es.mrmoustard.data.source.remote.dto.mapToDomain
 import junit.framework.TestCase.assertEquals
 import org.junit.Test
 

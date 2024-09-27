@@ -1,6 +1,7 @@
-package es.mrmoustard.data.source.dto
+package es.mrmoustard.data.source.remote.dto
 
 import com.google.gson.annotations.SerializedName
+import es.mrmoustard.data.source.local.database.dto.MovieStatus
 import es.mrmoustard.domain.model.Collection
 import es.mrmoustard.domain.model.MovieDetail
 
@@ -33,6 +34,9 @@ data class MovieDetailDto(
     val favourite: Boolean = false,
     val wannaWatchIt: Boolean = false
 )
+
+fun MovieDetailDto.setStatus(status: MovieStatus): MovieDetailDto =
+    copy(favourite = status.favourite, wannaWatchIt = status.wannaWatchIt)
 
 fun MovieDetailDto.mapToDomain(): MovieDetail =
     MovieDetail(

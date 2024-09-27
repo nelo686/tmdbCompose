@@ -24,7 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
-import es.mrmoustard.data.source.dto.Result
+import es.mrmoustard.data.source.remote.dto.Result
 import es.mrmoustard.domain.model.MovieDetail
 import es.mrmoustard.tmdbco.R
 import es.mrmoustard.tmdbco.ui.screen.common.ErrorMessage

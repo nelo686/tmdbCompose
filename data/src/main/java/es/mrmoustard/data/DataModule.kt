@@ -6,6 +6,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import es.mrmoustard.data.source.local.MoviesLocalDataSource
 import es.mrmoustard.data.source.remote.MoviesRemoteDataSource
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -69,6 +70,10 @@ class DataModule {
 
     @Provides
     fun moviesRemoteDataSourceProvider(restAdapter: Retrofit): MoviesRemoteDataSource =
+        restAdapter.create()
+
+    @Provides
+    fun moviesLocalDataSourceProvider(restAdapter: Retrofit): MoviesLocalDataSource =
         restAdapter.create()
 }
 

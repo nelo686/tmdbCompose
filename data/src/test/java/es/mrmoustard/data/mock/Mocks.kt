@@ -1,13 +1,13 @@
 package es.mrmoustard.data.mock
 
-import es.mrmoustard.data.source.dto.CollectionDto
-import es.mrmoustard.data.source.dto.GenreDto
-import es.mrmoustard.data.source.dto.MovieDetailDto
-import es.mrmoustard.data.source.dto.MovieDto
-import es.mrmoustard.data.source.dto.ProductionCompanyDto
-import es.mrmoustard.data.source.dto.ProductionCountryDto
-import es.mrmoustard.data.source.dto.SpokenLanguageDto
-import es.mrmoustard.data.source.dto.WrapperDto
+import es.mrmoustard.data.source.remote.dto.CollectionDto
+import es.mrmoustard.data.source.remote.dto.GenreDto
+import es.mrmoustard.data.source.remote.dto.MovieDetailDto
+import es.mrmoustard.data.source.remote.dto.MovieDto
+import es.mrmoustard.data.source.remote.dto.ProductionCompanyDto
+import es.mrmoustard.data.source.remote.dto.ProductionCountryDto
+import es.mrmoustard.data.source.remote.dto.SpokenLanguageDto
+import es.mrmoustard.data.source.remote.dto.WrapperDto
 import es.mrmoustard.domain.model.Collection
 import es.mrmoustard.domain.model.Genre
 import es.mrmoustard.domain.model.Movie
