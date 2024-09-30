@@ -22,3 +22,6 @@ fun MovieStatus.mapToDomain(): Movie =
         favourite = favourite,
         wannaWatchIt = wannaWatchIt
     )
+
+fun List<MovieStatus>.mapToDomain(): List<Movie> =
+    this.map { it.mapToDomain() }

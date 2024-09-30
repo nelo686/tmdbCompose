@@ -1,12 +1,17 @@
 package es.mrmoustard.data
 
+import android.content.Context
 import com.google.gson.GsonBuilder
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import es.mrmoustard.data.source.local.MoviesLocalDataSource
+import es.mrmoustard.data.source.local.MoviesLocalDataSourceImpl
+import es.mrmoustard.data.source.local.database.MovieDao
+import es.mrmoustard.data.source.local.database.MoviesDatabase
 import es.mrmoustard.data.source.remote.MoviesRemoteDataSource
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
@@ -73,8 +78,15 @@ class DataModule {
         restAdapter.create()
 
     @Provides
-    fun moviesLocalDataSourceProvider(restAdapter: Retrofit): MoviesLocalDataSource =
-        restAdapter.create()
+    fun databaseProvider(@ApplicationContext context: Context): MoviesDatabase =
+        MoviesDatabase.getInstance(context)
+
+    @Provides
+    fun daoProvider(db: MoviesDatabase): MovieDao = db.movieDao()
+
+    @Provides
+    fun moviesLocalDataSourceProvider(db: MoviesDatabase): MoviesLocalDataSource =
+        MoviesLocalDataSourceImpl(db)
 }
 
 @Retention(AnnotationRetention.BINARY)

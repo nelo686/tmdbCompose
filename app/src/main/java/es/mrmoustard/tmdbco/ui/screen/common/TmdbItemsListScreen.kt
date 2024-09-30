@@ -3,12 +3,11 @@ package es.mrmoustard.tmdbco.ui.screen.common
 import androidx.compose.runtime.Composable
 import es.mrmoustard.data.source.remote.dto.Result
 import es.mrmoustard.domain.model.Movie
-import es.mrmoustard.domain.model.TopRatedWrapper
 
 @Composable
 fun TmdbItemsListScreen(
     loading: Boolean,
-    items: Result<TopRatedWrapper>,
+    items: Result<List<Movie>>,
     onClick: (Movie) -> Unit
 ) {
     items.fold(
@@ -16,7 +15,7 @@ fun TmdbItemsListScreen(
         {
             TmdbItemsList(
                 loading = loading,
-                items = it.results,
+                items = it,
                 onMovieClick = onClick
             )
         }

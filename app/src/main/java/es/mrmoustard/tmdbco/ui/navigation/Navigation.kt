@@ -72,11 +72,13 @@ private fun NavGraphBuilder.watchlistNav(navController: NavHostController) {
         startDestination = NavCommand.ContentType(Feature.WATCHLIST).route
     ) {
         composable(navCommand = WATCHLIST.navCommand) {
-            WatchlistScreen { movie ->
-                navController.navigate(
-                    route = ContentDetail(Feature.WATCHLIST).buildRoute(movie.id)
-                )
-            }
+            WatchlistScreen(
+                onMovieClick = { movie ->
+                    navController.navigate(
+                        route = ContentDetail(Feature.WATCHLIST).buildRoute(movie.id)
+                    )
+                }
+            )
         }
         composable(navCommand = ContentDetail(Feature.WATCHLIST)) {
             MovieDetailScreen()

@@ -1,22 +1,32 @@
 package es.mrmoustard.tmdbco.ui.screen.detail
 
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Movie
+import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.outlined.Movie
+import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
@@ -24,6 +34,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
+import es.mrmoustard.data.source.local.database.dto.MovieStatus
 import es.mrmoustard.data.source.remote.dto.Result
 import es.mrmoustard.domain.model.MovieDetail
 import es.mrmoustard.tmdbco.R
@@ -34,22 +45,38 @@ import es.mrmoustard.tmdbco.ui.theme.CustomDarkGray
 fun MovieDetailScreen(viewModel: MovieDetailViewModel = hiltViewModel<MovieDetailViewModel>()) {
     when {
         viewModel.state.loading -> CircularProgressIndicator()
-        else -> DetailScreen(movie = viewModel.state.movie)
+        else -> DetailScreen(
+            movie = viewModel.state.movie,
+            onStatusChange = { viewModel.onStatusChange(it) }
+        )
     }
 }
 
 @Composable
-fun DetailScreen(movie: Result<MovieDetail?>) {
+fun DetailScreen(
+    movie: Result<MovieDetail?>,
+    onStatusChange: (MovieStatus) -> Unit
+) {
     movie.fold(
         { ErrorMessage(error = it) },
-        { item -> item?.let { DetailScreen(movie = it) } }
+        { item ->
+            item?.let {
+                DetailScreen(
+                    movie = it,
+                    onStatusChange = onStatusChange
+                )
+            }
+        }
     )
 }
 
 @Composable
-fun DetailScreen(movie: MovieDetail) {
+fun DetailScreen(
+    movie: MovieDetail,
+    onStatusChange: (MovieStatus) -> Unit
+) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
-        item { Header(movie) }
+        item { Header(movie, onStatusChange) }
         item { Title(movie.title) }
 
         if (movie.tagline.isNotEmpty()) {
@@ -67,10 +94,21 @@ fun DetailScreen(movie: MovieDetail) {
 }
 
 @Composable
-private fun Header(movie: MovieDetail) {
+private fun Header(
+    movie: MovieDetail,
+    onStatusChange: (MovieStatus) -> Unit
+) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
+        val status = MovieStatus(
+            id = movie.id,
+            title = movie.title,
+            backdropPath = movie.backdropPath,
+            favourite = movie.favourite,
+            wannaWatchIt = movie.wannaWatchIt
+        )
         Card {
             AsyncImage(
                 model = "https://image.tmdb.org/t/p/w342${movie.backdropPath}",
@@ -81,6 +119,38 @@ private fun Header(movie: MovieDetail) {
                     .fillMaxWidth()
                     .aspectRatio(1f)
             )
+        }
+        Row {
+            IconButton(
+
+                onClick = {
+                    Toast.makeText(context, movie.favourite.not().toString(), Toast.LENGTH_SHORT).show()
+                    onStatusChange(status.copy(favourite = movie.favourite.not())) }
+            ) {
+                Icon(
+                    imageVector = if (movie.favourite) {
+                        Icons.Filled.Star
+                    } else {
+                        Icons.Outlined.Star
+                    },
+                    contentDescription = null
+                )
+            }
+            IconButton(
+                onClick = {
+                    Toast.makeText(context, movie.wannaWatchIt.not().toString(), Toast.LENGTH_SHORT).show()
+                    onStatusChange(status.copy(wannaWatchIt = movie.wannaWatchIt.not()))
+                }
+            ) {
+                Icon(
+                    imageVector = if (movie.wannaWatchIt) {
+                        Icons.Filled.Movie
+                    } else {
+                        Icons.Outlined.Movie
+                    },
+                    contentDescription = null
+                )
+            }
         }
     }
 }

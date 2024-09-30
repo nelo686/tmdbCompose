@@ -1,30 +1,27 @@
-package es.mrmoustard.tmdbco.ui.screen.toprated
+package es.mrmoustard.tmdbco.ui.screen.watchlist
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import arrow.core.right
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.mrmoustard.data.repository.MoviesRepository
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class TopRatedViewModel @Inject constructor(
+class WatchlistViewModel @Inject constructor(
     private val repository: MoviesRepository
-) : ViewModel() {
+): ViewModel() {
 
-    var state by mutableStateOf(TopRatedUiState())
+    var state by mutableStateOf(WatchlistUiState())
         private set
 
     init {
         viewModelScope.launch {
-            state = TopRatedUiState(loading = true)
-            repository.getTopRated(page = 1).getOrNull()?.let {
-                state = TopRatedUiState(movies = it.results.right())
-            }
+            state = WatchlistUiState(loading = true)
+            state = WatchlistUiState(movies = repository.findMoviesToWatch())
         }
     }
 }

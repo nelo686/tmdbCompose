@@ -6,8 +6,10 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import arrow.core.right
 import dagger.hilt.android.lifecycle.HiltViewModel
 import es.mrmoustard.data.repository.MoviesRepository
+import es.mrmoustard.data.source.local.database.dto.MovieStatus
 import es.mrmoustard.tmdbco.ui.navigation.NavArg
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -27,6 +29,20 @@ class MovieDetailViewModel @Inject constructor(
         viewModelScope.launch {
             state = MovieDetailUiState(loading = true)
             state = MovieDetailUiState(movie = repository.getMovieDetails(movieId = id))
+        }
+    }
+
+    fun onStatusChange(status: MovieStatus) {
+        viewModelScope.launch {
+            repository.upgradeOrInsertMovieStatus(item = status)
+            state = MovieDetailUiState(
+                movie = state.movie
+                    .getOrNull()
+                    ?.copy(
+                        favourite = status.favourite,
+                        wannaWatchIt = status.wannaWatchIt
+                    ).right()
+            )
         }
     }
 }
