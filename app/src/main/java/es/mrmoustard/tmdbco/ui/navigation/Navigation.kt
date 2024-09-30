@@ -54,11 +54,13 @@ private fun NavGraphBuilder.favouriteNav(navController: NavHostController) {
         startDestination = NavCommand.ContentType(Feature.FAVOURITE).route
     ) {
         composable(navCommand = FAVOURITE.navCommand) {
-            FavouriteScreen { movie ->
-                navController.navigate(
-                    route = ContentDetail(Feature.FAVOURITE).buildRoute(movie.id)
-                )
-            }
+            FavouriteScreen(
+                onMovieClick = { movie ->
+                    navController.navigate(
+                        route = ContentDetail(Feature.FAVOURITE).buildRoute(movie.id)
+                    )
+                }
+            )
         }
         composable(navCommand = ContentDetail(Feature.FAVOURITE)) {
             MovieDetailScreen()

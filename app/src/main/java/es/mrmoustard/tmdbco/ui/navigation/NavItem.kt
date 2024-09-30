@@ -2,9 +2,6 @@ package es.mrmoustard.tmdbco.ui.navigation
 
 import  androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
-import androidx.compose.material.icons.filled.Home
-import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.outlined.Favorite
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Movie
@@ -16,26 +13,22 @@ import es.mrmoustard.tmdbco.ui.navigation.NavCommand.ContentType
 
 enum class NavItem(
     val navCommand: NavCommand,
-    val selectedIcon: ImageVector,
-    val unselectedIcon: ImageVector,
+    val icon: ImageVector,
     @StringRes val title: Int
 ) {
     TOP_RATED(
         navCommand = ContentType(Feature.TOP_RATED),
-        selectedIcon = Icons.Filled.Home,
-        unselectedIcon = Icons.Outlined.Home,
+        icon = Icons.Outlined.Home,
         title = R.string.top_rated
     ),
     FAVOURITE(
         navCommand = ContentType(Feature.FAVOURITE),
-        selectedIcon = Icons.Filled.Favorite,
-        unselectedIcon = Icons.Outlined.Favorite,
+        icon = Icons.Outlined.Favorite,
         title = R.string.favourites
     ),
     WATCHLIST(
         navCommand = ContentType(Feature.WATCHLIST),
-        selectedIcon = Icons.Filled.Movie,
-        unselectedIcon = Icons.Outlined.Movie,
+        icon = Icons.Outlined.Movie,
         title = R.string.watchlist
     )
 }

@@ -49,8 +49,8 @@ class MoviesRepository @Inject constructor(
         }
     }
 
-    suspend fun findFavourites(): Result<List<MovieStatus>> =
-        try { local.findFavourites().right() }
+    suspend fun findFavourites(): Result<List<Movie>> =
+        try { local.findFavourites().mapToDomain().right() }
         catch (e: Exception) { e.toError().left() }
 
     suspend fun findMoviesToWatch(): Result<List<Movie>> =

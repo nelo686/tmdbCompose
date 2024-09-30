@@ -21,7 +21,7 @@ fun AppBottomNavigation(
                 onClick = { onNavItemClick(item) },
                 icon = {
                     Icon(
-                        imageVector = item.unselectedIcon,
+                        imageVector = item.icon,
                         contentDescription = title
                     )
                 },
