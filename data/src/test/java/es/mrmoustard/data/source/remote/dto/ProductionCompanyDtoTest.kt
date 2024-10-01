@@ -1,4 +1,4 @@
-package es.mrmoustard.data.source.dto
+package es.mrmoustard.data.source.remote.dto
 
 import es.mrmoustard.data.mock.productionCompanyDtoMockList
 import es.mrmoustard.data.mock.productionCompanyMockList
