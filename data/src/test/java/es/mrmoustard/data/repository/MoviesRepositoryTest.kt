@@ -1,6 +1,7 @@
 package es.mrmoustard.data.repository
 
 import es.mrmoustard.data.mock.movieDetailDtoMock
+import es.mrmoustard.data.mock.movieStatusMock
 import es.mrmoustard.data.mock.wrapperDtoMock
 import es.mrmoustard.data.source.local.MoviesLocalDataSource
 import es.mrmoustard.data.source.remote.MoviesRemoteDataSource
@@ -8,6 +9,7 @@ import es.mrmoustard.domain.model.Movie
 import es.mrmoustard.domain.model.MovieDetail
 import es.mrmoustard.domain.model.TopRatedWrapper
 import junit.framework.TestCase.assertEquals
+import junit.framework.TestCase.assertTrue
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.CoreMatchers.instanceOf
 import org.hamcrest.MatcherAssert.assertThat
@@ -29,6 +31,72 @@ class MoviesRepositoryTest {
     fun setUp() {
         MockitoAnnotations.openMocks(this)
         repository = MoviesRepository(local, remote)
+    }
+
+    @Test
+    fun `Given an non-empty database, When findMoviesToWatch() is called, Then a list is retrieved `() {
+        runBlocking {
+            // Given
+            val expected = movieStatusMock.copy(wannaWatchIt = true)
+            whenever(local.findMoviesToWatch()).thenReturn(listOf(expected))
+
+            // When
+            val response = repository.findMoviesToWatch()
+
+            // Then
+            assertTrue(response.isRight())
+            assertTrue(response.getOrNull()!!.isNotEmpty())
+            assertThat(response.getOrNull()!!.first(), instanceOf(Movie::class.java))
+            assertEquals(movieStatusMock.id, response.getOrNull()!!.first().id)
+        }
+    }
+
+    @Test
+    fun `Given an empty database, When findMoviesToWatch() is called, Then an empty list is retrieved `() {
+        runBlocking {
+            // Given
+            whenever(local.findMoviesToWatch()).thenReturn(emptyList())
+
+            // When
+            val response = repository.findMoviesToWatch()
+
+            // Then
+            assertTrue(response.isRight())
+            assertTrue(response.getOrNull()!!.isEmpty())
+        }
+    }
+
+    @Test
+    fun `Given a non-empty database, When findFavourites() is called, Then a list is retrieved `() {
+        runBlocking {
+            // Given
+            val expected = movieStatusMock.copy(favourite = true)
+            whenever(local.findFavourites()).thenReturn(listOf(expected))
+
+            // When
+            val response = repository.findFavourites()
+
+            // Then
+            assertTrue(response.isRight())
+            assertTrue(response.getOrNull()!!.isNotEmpty())
+            assertThat(response.getOrNull()!!.first(), instanceOf(Movie::class.java))
+            assertEquals(movieStatusMock.id, response.getOrNull()!!.first().id)
+        }
+    }
+
+    @Test
+    fun `Given an empty database, When findFavourites() is called, Then an empty list is retrieved `() {
+        runBlocking {
+            // Given
+            whenever(local.findFavourites()).thenReturn(emptyList())
+
+            // When
+            val response = repository.findFavourites()
+
+            // Then
+            assertTrue(response.isRight())
+            assertTrue(response.getOrNull()!!.isEmpty())
+        }
     }
 
     @Test
