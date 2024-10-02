@@ -1,5 +1,6 @@
 package es.mrmoustard.data.mock
 
+import es.mrmoustard.data.source.local.database.dto.MovieStatus
 import es.mrmoustard.data.source.remote.dto.CollectionDto
 import es.mrmoustard.data.source.remote.dto.GenreDto
 import es.mrmoustard.data.source.remote.dto.MovieDetailDto
@@ -181,4 +182,10 @@ internal val topRatedWrapperMock = TopRatedWrapper(
     results = listOf(movieMock),
     totalPages = 1,
     totalResults = 1
+)
+
+internal val movieStatusMock = MovieStatus(
+    id = 1,
+    title = "title",
+    backdropPath = "backdropPath"
 )
