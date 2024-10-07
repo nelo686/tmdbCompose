@@ -1,5 +1,11 @@
 #tmdbCo
 
+![List View](list_screenshot.png)
+![Detail View](detail_screenshot.png)
+
+With this app, you can check the top rated movies in Spain, mark which ones are your 
+favorites and which ones you want to see.
+
 I used the following technologies:
 
 - Kotlin.
@@ -7,6 +13,7 @@ I used the following technologies:
 - Jetpack Compose.
 - Compose Navigation.
 - Coroutines.
+- StateFlow.
 
 I did use the following libraries:
 
@@ -17,4 +24,4 @@ I did use the following libraries:
 - Coil, to load images efficiently.
 - Arrow, to be able to use Eithers.
 
-I used **jUnit5** and **Mockito** test *viewModels* and both *data* and *domain* layers.
+I used **jUnit5**, **Mockito** and **turbine** to test *viewModels* and both *data* and *domain* layers.
