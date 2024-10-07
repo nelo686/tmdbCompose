@@ -8,7 +8,6 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Movie
@@ -24,6 +23,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
@@ -125,40 +125,44 @@ private fun Header(
         Row {
             IconButton(
                 onClick = { onStatusChange(status.copy(favourite = movie.favourite.not())) }) {
-                Icon(
-                    imageVector = if (movie.favourite) {
-                        Icons.Filled.Star
-                    } else {
-                        Icons.Outlined.StarOutline
-                    },
-                    contentDescription = null,
-                    modifier = Modifier.size(dimensionResource(R.dimen.status_icon_size)),
-                    tint = if (movie.favourite) {
-                        customGold
-                    } else {
-                        Color.DarkGray
-                    }
+                StatusIcon(
+                    statusValue = movie.favourite,
+                    selectedIcon = Icons.Filled.Star,
+                    unselectedIcon = Icons.Outlined.StarOutline
                 )
             }
             IconButton(
                 onClick = { onStatusChange(status.copy(wannaWatchIt = movie.wannaWatchIt.not())) }
             ) {
-                Icon(
-                    imageVector = if (movie.wannaWatchIt) {
-                        Icons.Filled.Movie
-                    } else {
-                        Icons.Outlined.Movie
-                    },
-                    contentDescription = null,
-                    tint = if (movie.wannaWatchIt) {
-                        customGold
-                    } else {
-                        Color.DarkGray
-                    }
+                StatusIcon(
+                    statusValue = movie.wannaWatchIt,
+                    selectedIcon = Icons.Filled.Movie,
+                    unselectedIcon = Icons.Outlined.Movie
                 )
             }
         }
     }
+}
+
+@Composable
+fun StatusIcon(
+    statusValue: Boolean,
+    selectedIcon: ImageVector,
+    unselectedIcon: ImageVector
+) {
+    Icon(
+        imageVector = if (statusValue) {
+            selectedIcon
+        } else {
+            unselectedIcon
+        },
+        contentDescription = null,
+        tint = if (statusValue) {
+            customGold
+        } else {
+            Color.DarkGray
+        }
+    )
 }
 
 @Composable
