@@ -1,9 +1,10 @@
 #tmdbCo
 
-![List View](list_screenshot.png)
-![Detail View](detail_screenshot.png)
+| <img src="app/src/main/res/raw/list_screenshot.png" alt="List View" width="250"/> | <img src="app/src/main/res/raw/detail_screenshot.png" alt="Detail View" width="250"/> |
+| :--- | :--- |
+<br>
 
-With this app, you can check the top rated movies in Spain, mark which ones are your 
+With this app, you can check the top rated movies in Spain, mark which ones are your
 favorites and which ones you want to see.
 
 I used the following technologies:
