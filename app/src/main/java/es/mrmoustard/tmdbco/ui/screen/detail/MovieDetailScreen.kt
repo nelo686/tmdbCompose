@@ -1,6 +1,5 @@
 package es.mrmoustard.tmdbco.ui.screen.detail
 
-import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,14 +8,14 @@ import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Movie
 import androidx.compose.material.icons.filled.Star
 import androidx.compose.material.icons.outlined.Movie
-import androidx.compose.material.icons.outlined.Star
+import androidx.compose.material.icons.outlined.StarOutline
 import androidx.compose.material3.Card
-import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -26,27 +25,31 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
 import es.mrmoustard.data.source.local.database.dto.MovieStatus
 import es.mrmoustard.data.source.remote.dto.Result
 import es.mrmoustard.domain.model.MovieDetail
 import es.mrmoustard.tmdbco.R
 import es.mrmoustard.tmdbco.ui.screen.common.ErrorMessage
+import es.mrmoustard.tmdbco.ui.screen.common.ProgressIndicator
 import es.mrmoustard.tmdbco.ui.theme.CustomDarkGray
+import es.mrmoustard.tmdbco.ui.theme.customGold
+import java.util.Locale
 
 @Composable
 fun MovieDetailScreen(viewModel: MovieDetailViewModel = hiltViewModel<MovieDetailViewModel>()) {
+    val state = viewModel.uiState.collectAsStateWithLifecycle()
     when {
-        viewModel.state.loading -> CircularProgressIndicator()
+        state.value.loading -> ProgressIndicator()
         else -> DetailScreen(
-            movie = viewModel.state.movie,
+            movie = state.value.movie,
             onStatusChange = { viewModel.onStatusChange(it) }
         )
     }
@@ -98,7 +101,6 @@ private fun Header(
     movie: MovieDetail,
     onStatusChange: (MovieStatus) -> Unit
 ) {
-    val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxWidth()
     ) {
@@ -122,25 +124,24 @@ private fun Header(
         }
         Row {
             IconButton(
-
-                onClick = {
-                    Toast.makeText(context, movie.favourite.not().toString(), Toast.LENGTH_SHORT).show()
-                    onStatusChange(status.copy(favourite = movie.favourite.not())) }
-            ) {
+                onClick = { onStatusChange(status.copy(favourite = movie.favourite.not())) }) {
                 Icon(
                     imageVector = if (movie.favourite) {
                         Icons.Filled.Star
                     } else {
-                        Icons.Outlined.Star
+                        Icons.Outlined.StarOutline
                     },
-                    contentDescription = null
+                    contentDescription = null,
+                    modifier = Modifier.size(dimensionResource(R.dimen.status_icon_size)),
+                    tint = if (movie.favourite) {
+                        customGold
+                    } else {
+                        Color.DarkGray
+                    }
                 )
             }
             IconButton(
-                onClick = {
-                    Toast.makeText(context, movie.wannaWatchIt.not().toString(), Toast.LENGTH_SHORT).show()
-                    onStatusChange(status.copy(wannaWatchIt = movie.wannaWatchIt.not()))
-                }
+                onClick = { onStatusChange(status.copy(wannaWatchIt = movie.wannaWatchIt.not())) }
             ) {
                 Icon(
                     imageVector = if (movie.wannaWatchIt) {
@@ -148,7 +149,12 @@ private fun Header(
                     } else {
                         Icons.Outlined.Movie
                     },
-                    contentDescription = null
+                    contentDescription = null,
+                    tint = if (movie.wannaWatchIt) {
+                        customGold
+                    } else {
+                        Color.DarkGray
+                    }
                 )
             }
         }
@@ -222,7 +228,7 @@ private fun Highlights(movie: MovieDetail) {
 private fun MovieScore(voteAverage: Double, voteCount: Int) {
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
-            text = String.format("%.2f/10", voteAverage),
+            text = String.format(Locale.getDefault(), "%.2f/10", voteAverage),
             color = Color.White,
             textAlign = TextAlign.End,
             style = MaterialTheme.typography.bodyLarge,

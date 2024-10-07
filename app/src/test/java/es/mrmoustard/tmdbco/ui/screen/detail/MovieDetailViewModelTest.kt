@@ -45,8 +45,8 @@ class MovieDetailViewModelTest {
             viewModel = MovieDetailViewModel(savedStateHandle, repository)
 
             // Then
-            assertTrue(viewModel.state.movie.isRight())
-            assertThat(viewModel.state.movie.getOrNull(), instanceOf(MovieDetail::class.java))
+            assertTrue(viewModel.uiState.value.movie.isRight())
+            assertThat(viewModel.uiState.value.movie.getOrNull(), instanceOf(MovieDetail::class.java))
         }
 
     @Test
@@ -61,7 +61,7 @@ class MovieDetailViewModelTest {
             viewModel = MovieDetailViewModel(savedStateHandle, repository)
 
             // Then
-            assertTrue(viewModel.state.movie.isLeft())
-            assertThat(viewModel.state.movie.leftOrNull(), instanceOf(Error::class.java))
+            assertTrue(viewModel.uiState.value.movie.isLeft())
+            assertThat(viewModel.uiState.value.movie.leftOrNull(), instanceOf(Error::class.java))
         }
 }
