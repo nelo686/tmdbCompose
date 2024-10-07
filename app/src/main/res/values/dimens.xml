@@ -12,4 +12,5 @@
     <dimen name="small_spacer">4dp</dimen>
     <dimen name="huge_spacer">48dp</dimen>
     <dimen name="header_line_thickness">1dp</dimen>
+    <dimen name="status_icon_size">32dp</dimen>
 </resources>
