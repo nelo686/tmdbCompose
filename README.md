@@ -1,4 +1,4 @@
-#tmdbCo
+# The Movie DataBase [Compose edition]
 
 | <img src="app/src/main/res/raw/list_screenshot.png" alt="List View" width="250"/> | <img src="app/src/main/res/raw/detail_screenshot.png" alt="Detail View" width="250"/> |
 | :--- | :--- |
