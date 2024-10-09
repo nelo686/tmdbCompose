@@ -2,7 +2,7 @@ package es.mrmoustard.tmdbco.ui.navigation
 
 import  androidx.annotation.StringRes
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Favorite
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Home
 import androidx.compose.material.icons.outlined.Movie
 import androidx.compose.ui.graphics.vector.ImageVector
@@ -23,7 +23,7 @@ enum class NavItem(
     ),
     FAVOURITE(
         navCommand = ContentType(Feature.FAVOURITE),
-        icon = Icons.Outlined.Favorite,
+        icon = Icons.Outlined.FavoriteBorder,
         title = R.string.favourites
     ),
     WATCHLIST(
